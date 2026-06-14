@@ -2,10 +2,9 @@ import { Badge } from "@/components/ui/Badge";
 import type { ProductStatus } from "@/types";
 import { statusLabel } from "@/utils/format";
 
-const TONE: Record<ProductStatus, "green" | "gray" | "amber"> = {
+const TONE: Record<ProductStatus, "green" | "gray"> = {
   active: "green",
   inactive: "gray",
-  out_of_stock: "amber",
 };
 
 export function StatusBadge({ status }: { status: ProductStatus }) {

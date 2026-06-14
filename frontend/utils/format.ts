@@ -20,7 +20,6 @@ export function formatDate(iso: string): string {
 const STATUS_LABELS: Record<ProductStatus, string> = {
   active: "Active",
   inactive: "Inactive",
-  out_of_stock: "Out of stock",
 };
 
 export function statusLabel(status: ProductStatus): string {

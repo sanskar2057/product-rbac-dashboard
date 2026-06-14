@@ -3,9 +3,20 @@
 import { Pencil, Trash2 } from "lucide-react";
 
 import { StatusBadge } from "@/components/StatusBadge";
+import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import type { Product } from "@/types";
 import { formatDate, formatPrice } from "@/utils/format";
+
+/** Status reflects the merchant's choice; "out of stock" is derived from quantity. */
+function StatusCell({ product }: { product: Product }) {
+  return (
+    <div className="flex flex-wrap items-center gap-1.5">
+      <StatusBadge status={product.status} />
+      {product.stock === 0 && <Badge tone="amber">Out of stock</Badge>}
+    </div>
+  );
+}
 
 interface ProductTableProps {
   products: Product[];
@@ -104,7 +115,7 @@ export function ProductTable({
                   </span>
                 </td>
                 <td className="px-4 py-3">
-                  <StatusBadge status={product.status} />
+                  <StatusCell product={product} />
                 </td>
                 <td className="px-4 py-3 text-zinc-500 dark:text-zinc-400">
                   {formatDate(product.updated_at)}
@@ -133,7 +144,7 @@ export function ProductTable({
                   {product.category}
                 </p>
               </div>
-              <StatusBadge status={product.status} />
+              <StatusCell product={product} />
             </div>
             <div className="mt-2 flex items-center justify-between">
               <div className="flex items-baseline gap-3">

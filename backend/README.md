@@ -102,8 +102,11 @@ All product routes require a `Authorization: Bearer <access_token>` header.
 | GET    | `/products/categories` | `product:read`   | Distinct categories in the store.    |
 
 `GET /products` query parameters: `search`, `category`, `status`
-(`active` \| `inactive` \| `out_of_stock`), `page` (default 1),
+(`active` \| `inactive`), `page` (default 1),
 `page_size` (default 10, max 100). It returns:
+
+> A product is considered **out of stock** when `stock` is `0`. That's derived
+> from the quantity rather than stored as a status, so the two can never disagree.
 
 ```json
 { "items": [ /* Product[] */ ], "total": 8, "page": 1, "page_size": 10 }

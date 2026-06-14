@@ -3,7 +3,6 @@ import type { ProductStatus, Role } from "@/types";
 export const PRODUCT_STATUSES: { value: ProductStatus; label: string }[] = [
   { value: "active", label: "Active" },
   { value: "inactive", label: "Inactive" },
-  { value: "out_of_stock", label: "Out of stock" },
 ];
 
 export const PRODUCT_CATEGORIES = [

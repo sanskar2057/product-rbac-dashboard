@@ -9,7 +9,6 @@ from .rbac import Role
 class ProductStatus(str, Enum):
     ACTIVE = "active"
     INACTIVE = "inactive"
-    OUT_OF_STOCK = "out_of_stock"
 
 
 # ----- auth -----

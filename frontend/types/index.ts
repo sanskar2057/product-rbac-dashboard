@@ -6,7 +6,7 @@ export type Permission =
   | "product:update"
   | "product:delete";
 
-export type ProductStatus = "active" | "inactive" | "out_of_stock";
+export type ProductStatus = "active" | "inactive";
 
 export interface User {
   email: string;

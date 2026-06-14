@@ -20,12 +20,12 @@ def _now() -> datetime:
 _SEED = [
     ("Aurora Wireless Headphones", "Over-ear ANC headphones with 30h battery life.", 189.99, 42, "Electronics", ProductStatus.ACTIVE),
     ("Trailhead Backpack 32L", "Water-resistant hiking pack with laptop sleeve.", 79.50, 18, "Outdoors", ProductStatus.ACTIVE),
-    ("Ceramic Pour-Over Set", "Hand-glazed dripper with matching carafe.", 42.00, 0, "Home & Kitchen", ProductStatus.OUT_OF_STOCK),
+    ("Ceramic Pour-Over Set", "Hand-glazed dripper with matching carafe.", 42.00, 0, "Home & Kitchen", ProductStatus.ACTIVE),
     ("Mechanical Keyboard K2", "Hot-swappable 75% board with PBT keycaps.", 119.00, 65, "Electronics", ProductStatus.ACTIVE),
     ("Organic Cotton Tee", "Pre-shrunk crew neck in heather grey.", 24.99, 120, "Apparel", ProductStatus.INACTIVE),
     ("Standing Desk Converter", "Height-adjustable riser for monitors and keyboard.", 159.00, 9, "Furniture", ProductStatus.ACTIVE),
     ("Field Notes Trio", "Three pocket notebooks, dot grid.", 12.95, 200, "Stationery", ProductStatus.ACTIVE),
-    ("Cold Brew Concentrate", "Small-batch, low-acidity, 1L bottle.", 18.00, 0, "Grocery", ProductStatus.OUT_OF_STOCK),
+    ("Cold Brew Concentrate", "Small-batch, low-acidity, 1L bottle.", 18.00, 0, "Grocery", ProductStatus.ACTIVE),
 ]
 
 
