@@ -142,5 +142,6 @@ frontend/
 - Users and the demo password are hardcoded on the backend for evaluation.
 - Tokens are kept in `localStorage` for simplicity. A production app would likely
   prefer httpOnly cookies to reduce XSS exposure.
-- No automated tests are included; the focus was on the feature set and structure
-  within the time box.
+- The frontend leans on TypeScript and manual testing; the automated test suite
+  lives on the backend (`cd backend && pytest`), where the RBAC rules are
+  enforced and worth guarding against regressions.
