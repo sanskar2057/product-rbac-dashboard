@@ -7,9 +7,11 @@ import { Can } from "@/components/Can";
 import { EmptyState } from "@/components/feedback/EmptyState";
 import { ErrorState } from "@/components/feedback/ErrorState";
 import { Pagination } from "@/components/products/Pagination";
+import { ProductCards } from "@/components/products/ProductCards";
 import { ProductFilters } from "@/components/products/ProductFilters";
 import { ProductFormModal } from "@/components/products/ProductFormModal";
 import { ProductTable } from "@/components/products/ProductTable";
+import { StatsCards } from "@/components/products/StatsCards";
 import { Button } from "@/components/ui/Button";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { Spinner } from "@/components/ui/Spinner";
@@ -17,13 +19,14 @@ import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/context/ToastContext";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useProducts } from "@/hooks/useProducts";
+import { useProductStats } from "@/hooks/useProductStats";
 import { PAGE_SIZE } from "@/lib/constants";
 import { ApiError } from "@/services/apiClient";
 import { productService } from "@/services/productService";
 import type { Product, ProductInput, ProductStatus } from "@/types";
 
 export default function ProductsPage() {
-  const { hasPermission } = useAuth();
+  const { user, hasPermission } = useAuth();
   const { notify } = useToast();
 
   const [searchInput, setSearchInput] = useState("");
@@ -48,6 +51,8 @@ export default function ProductsPage() {
     pageSize: PAGE_SIZE,
   });
 
+  const { stats, loading: statsLoading, refresh: refreshStats } = useProductStats();
+
   // Any change to the filters should send us back to the first page.
   useEffect(() => {
     setPage(1);
@@ -56,6 +61,15 @@ export default function ProductsPage() {
   const canUpdate = hasPermission("product:update");
   const canDelete = hasPermission("product:delete");
   const hasFilters = Boolean(search || category || status);
+  const role = user?.role ?? "viewer";
+  // Viewers have no row actions, so a browsable card gallery suits them better.
+  const showGallery = role === "viewer";
+
+  // Keep the analytics cards in sync after a create/update/delete.
+  function reload() {
+    refresh();
+    refreshStats();
+  }
 
   function openCreate() {
     setEditing(null);
@@ -79,7 +93,7 @@ export default function ProductsPage() {
       }
       setFormOpen(false);
       setEditing(null);
-      refresh();
+      reload();
     } catch (err) {
       notify(
         err instanceof ApiError ? err.message : "Could not save the product.",
@@ -99,9 +113,10 @@ export default function ProductsPage() {
 
       // If we just removed the only row on a later page, step back one.
       if (data && data.items.length === 1 && page > 1) {
-        setPage((p) => p - 1);
+        setPage((p) => p - 1); // page change refetches the list on its own
+        refreshStats();
       } else {
-        refresh();
+        reload();
       }
       setDeleteTarget(null);
     } catch (err) {
@@ -134,6 +149,8 @@ export default function ProductsPage() {
           </Button>
         </Can>
       </div>
+
+      <StatsCards role={role} stats={stats} loading={statsLoading} />
 
       <div className="rounded-xl border border-zinc-200 bg-white shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
         <div className="border-b border-zinc-200 p-4 dark:border-zinc-800">
@@ -174,13 +191,17 @@ export default function ProductsPage() {
           />
         ) : (
           <>
-            <ProductTable
-              products={products}
-              canUpdate={canUpdate}
-              canDelete={canDelete}
-              onEdit={openEdit}
-              onDelete={setDeleteTarget}
-            />
+            {showGallery ? (
+              <ProductCards products={products} />
+            ) : (
+              <ProductTable
+                products={products}
+                canUpdate={canUpdate}
+                canDelete={canDelete}
+                onEdit={openEdit}
+                onDelete={setDeleteTarget}
+              />
+            )}
             {data && (
               <Pagination
                 page={data.page}

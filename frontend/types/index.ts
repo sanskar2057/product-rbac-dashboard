@@ -43,6 +43,16 @@ export interface ProductPage {
   page_size: number;
 }
 
+export interface ProductStats {
+  total: number;
+  active: number;
+  inactive: number;
+  out_of_stock: number;
+  low_stock: number;
+  total_units: number;
+  inventory_value: number;
+}
+
 export interface ProductQuery {
   search?: string;
   category?: string;

@@ -1,4 +1,10 @@
-import type { Product, ProductInput, ProductPage, ProductQuery } from "@/types";
+import type {
+  Product,
+  ProductInput,
+  ProductPage,
+  ProductQuery,
+  ProductStats,
+} from "@/types";
 import { api } from "./apiClient";
 
 function buildQuery(query: ProductQuery): string {
@@ -14,6 +20,10 @@ function buildQuery(query: ProductQuery): string {
 export const productService = {
   list(query: ProductQuery, signal?: AbortSignal): Promise<ProductPage> {
     return api.get<ProductPage>(`/products?${buildQuery(query)}`, { signal });
+  },
+
+  stats(signal?: AbortSignal): Promise<ProductStats> {
+    return api.get<ProductStats>("/products/stats", { signal });
   },
 
   create(input: ProductInput): Promise<Product> {
