@@ -17,18 +17,11 @@ full API documentation.
 | Editor |  ✅  | ❌  |  ✅  |   ❌   |
 | Viewer |  ✅  | ❌  |  ❌  |   ❌   |
 
-## Run with Docker (one command)
+## Running the app
 
-```bash
-docker compose up --build
-```
+### Backend
 
-- Frontend: http://localhost:3000
-- Backend + docs: http://localhost:8000/docs
-
-## Run locally
-
-**Backend**
+Run it locally with Python:
 
 ```bash
 cd backend
@@ -37,7 +30,20 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
 ```
 
-**Frontend** (in a second terminal)
+…or with Docker:
+
+```bash
+cd backend
+docker build -t product-rbac-api .
+docker run -p 8000:8000 product-rbac-api
+```
+
+Either way the API is at http://localhost:8000 and the docs at
+http://localhost:8000/docs.
+
+### Frontend
+
+In a second terminal:
 
 ```bash
 cd frontend

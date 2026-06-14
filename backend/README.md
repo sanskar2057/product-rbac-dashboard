@@ -32,6 +32,16 @@ The API runs at `http://localhost:8000`. Interactive docs are available at:
 - Swagger UI: http://localhost:8000/docs
 - ReDoc: http://localhost:8000/redoc
 
+### With Docker
+
+```bash
+cd backend
+docker build -t product-rbac-api .
+docker run -p 8000:8000 product-rbac-api
+```
+
+Pass configuration with `-e`, e.g. `docker run -p 8000:8000 -e CORS_ORIGINS=http://localhost:3000 product-rbac-api`.
+
 ## Demo accounts
 
 All accounts share the password **`password123`**.
