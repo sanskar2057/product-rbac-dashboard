@@ -2,7 +2,14 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 
 from .deps import require_permission
 from .rbac import Permission
-from .schemas import Product, ProductInput, ProductPage, ProductPatch, ProductStatus
+from .schemas import (
+    Product,
+    ProductInput,
+    ProductPage,
+    ProductPatch,
+    ProductStats,
+    ProductStatus,
+)
 from .store import store
 
 router = APIRouter(prefix="/products", tags=["products"])
@@ -30,6 +37,12 @@ def list_products(
 @router.get("/categories", response_model=list[str])
 def list_categories(_=Depends(require_permission(Permission.READ))) -> list[str]:
     return store.categories()
+
+
+@router.get("/stats", response_model=ProductStats)
+def product_stats(_=Depends(require_permission(Permission.READ))) -> ProductStats:
+    """Aggregate analytics across the whole catalogue (not just one page)."""
+    return ProductStats(**store.stats())
 
 
 @router.get("/{product_id}", response_model=Product)

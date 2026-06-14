@@ -12,6 +12,9 @@ from uuid import uuid4
 
 from .schemas import Product, ProductInput, ProductPatch, ProductStatus
 
+# Items at or below this quantity (but not zero) count as "low stock".
+LOW_STOCK_THRESHOLD = 10
+
 
 def _now() -> datetime:
     return datetime.now(timezone.utc)
@@ -80,6 +83,20 @@ class ProductStore:
     def categories(self) -> list[str]:
         with self._lock:
             return sorted({p.category for p in self._items.values()})
+
+    def stats(self) -> dict:
+        with self._lock:
+            items = list(self._items.values())
+
+        return {
+            "total": len(items),
+            "active": sum(1 for p in items if p.status == ProductStatus.ACTIVE),
+            "inactive": sum(1 for p in items if p.status == ProductStatus.INACTIVE),
+            "out_of_stock": sum(1 for p in items if p.stock == 0),
+            "low_stock": sum(1 for p in items if 0 < p.stock <= LOW_STOCK_THRESHOLD),
+            "total_units": sum(p.stock for p in items),
+            "inventory_value": round(sum(p.price * p.stock for p in items), 2),
+        }
 
     def get(self, product_id: str) -> Product | None:
         with self._lock:

@@ -72,3 +72,13 @@ class ProductPage(BaseModel):
     total: int
     page: int
     page_size: int
+
+
+class ProductStats(BaseModel):
+    total: int
+    active: int
+    inactive: int
+    out_of_stock: int
+    low_stock: int
+    total_units: int
+    inventory_value: float

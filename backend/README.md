@@ -110,6 +110,21 @@ All product routes require a `Authorization: Bearer <access_token>` header.
 | PUT    | `/products/{id}`       | `product:update` | Update a product (partial allowed).  |
 | DELETE | `/products/{id}`       | `product:delete` | Delete a product.                    |
 | GET    | `/products/categories` | `product:read`   | Distinct categories in the store.    |
+| GET    | `/products/stats`      | `product:read`   | Aggregate analytics for the catalogue. |
+
+`GET /products/stats` returns counts used by the dashboard cards:
+
+```json
+{
+  "total": 8,
+  "active": 7,
+  "inactive": 1,
+  "out_of_stock": 2,
+  "low_stock": 1,
+  "total_units": 454,
+  "inventory_value": 24165.38
+}
+```
 
 `GET /products` query parameters: `search`, `category`, `status`
 (`active` \| `inactive`), `page` (default 1),
