@@ -21,9 +21,9 @@ class User:
 
 
 _SEED = [
-    ("admin@example.com", "Aarav Sharma", Role.ADMIN),
-    ("editor@example.com", "Priya Karki", Role.EDITOR),
-    ("viewer@example.com", "Sita Gurung", Role.VIEWER),
+    ("admin@example.com", "Sanskar Dhungana", Role.ADMIN),
+    ("editor@example.com", "Editor User", Role.EDITOR),
+    ("viewer@example.com", "Viewer User", Role.VIEWER),
 ]
 
 _users: dict[str, User] = {
