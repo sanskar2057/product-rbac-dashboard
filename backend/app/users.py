@@ -21,7 +21,7 @@ class User:
 
 
 _SEED = [
-    ("admin@example.com", "Sanskar Dhungana", Role.ADMIN),
+    ("admin@example.com", "Admin User", Role.ADMIN),
     ("editor@example.com", "Editor User", Role.EDITOR),
     ("viewer@example.com", "Viewer User", Role.VIEWER),
 ]
