@@ -22,8 +22,8 @@ export function Pagination({
   const to = Math.min(page * pageSize, total);
 
   return (
-    <div className="flex items-center justify-between gap-4 border-t border-zinc-200 px-4 py-3 dark:border-zinc-800">
-      <p className="text-sm text-zinc-500 dark:text-zinc-400">
+    <div className="flex flex-col gap-3 border-t border-zinc-200 px-4 py-3 sm:flex-row sm:items-center sm:justify-between dark:border-zinc-800">
+      <p className="text-center text-sm text-zinc-500 sm:text-left dark:text-zinc-400">
         {total === 0 ? (
           "No results"
         ) : (
@@ -34,7 +34,7 @@ export function Pagination({
           </>
         )}
       </p>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center justify-center gap-2 sm:justify-end">
         <Button
           variant="secondary"
           size="sm"
@@ -44,7 +44,7 @@ export function Pagination({
           <ChevronLeft className="h-4 w-4" />
           Prev
         </Button>
-        <span className="text-sm text-zinc-500 dark:text-zinc-400">
+        <span className="whitespace-nowrap text-sm text-zinc-500 dark:text-zinc-400">
           Page {page} of {totalPages}
         </span>
         <Button

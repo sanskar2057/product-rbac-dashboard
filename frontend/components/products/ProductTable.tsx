@@ -136,15 +136,17 @@ export function ProductTable({
         {products.map((product) => (
           <li key={product.id} className="p-4">
             <div className="flex items-start justify-between gap-3">
-              <div className="min-w-0">
-                <p className="font-medium text-zinc-900 dark:text-zinc-100">
+              <div className="min-w-0 flex-1">
+                <p className="truncate font-medium text-zinc-900 dark:text-zinc-100">
                   {product.name}
                 </p>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                <p className="truncate text-xs text-zinc-500 dark:text-zinc-400">
                   {product.category}
                 </p>
               </div>
-              <StatusCell product={product} />
+              <div className="shrink-0">
+                <StatusCell product={product} />
+              </div>
             </div>
             <div className="mt-2 flex items-center justify-between">
               <div className="flex items-baseline gap-3">
